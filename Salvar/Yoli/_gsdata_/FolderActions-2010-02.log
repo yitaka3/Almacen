@@ -1,0 +1,46 @@
+Deleted old log file C:\Datos\Yoli\_gsdata_\FolderActions-2009-03.log
+Deleted old log file K:\Yoli\_gsdata_\FolderActions-2009-03.log
+----- 03/02/2010 19:03:59: Tarea 'Pen': ANÁLISIS comenzado por User en ordenador 'FAM-27' (GoodSync v 7.5.9.5) -----
+Job 'Pen': izquierda <-> derecha, PropDels, SaveDroppedFiles, TmpDestFile, EstReqSpace, CopyLockedFiles, Reconnect, CaseSensitive
+Filtros: ExcludeHidden ExcludeSystem Included='' Excluded='licens*.rfo|cache.rfo|mru.rfo|\System Volume Information|Thumbs.db'
+izquierda: C:\Datos\Yoli | C: NTFS, Libre: 25,7 GB, Total: 48,8 GB
+izquierda: Leer archivo de estado C:\Datos\Yoli\_gsdata_\_file_state._gs
+izquierda: Archivos: 806 (excluidos 22). Carpetas: 37 (excluidas 3).
+derecha: K:\Yoli | K: FAT32, Libre: 569 MB, Total: 953 MB
+derecha: Leer archivo de estado K:\Yoli\_gsdata_\_file_state._gs
+derecha: Archivos: 786 (excluidos 24). Carpetas: 36 (excluidas 2).
+On disk K: space required for sync is 50,3 MB, you have 569 MB
+Cambios: 22, Conflictos: 0, TiempoCopia: 0, EstadoCopia: 0, Errores: 0
+----- 03/02/2010 19:04:20: Análisis Completado. Tiempo 00:00:25, Velocidad: 34 archivo/s -----
+
+===== 03/02/2010 19:05:45: Tarea 'Pen': SINC comenzada por User en ordenador 'FAM-27' =====
+Job 'Pen': izquierda <-> derecha, PropDels, SaveDroppedFiles, TmpDestFile, EstReqSpace, CopyLockedFiles, Reconnect, CaseSensitive
+Locking folder C:\Datos\Yoli for write
+Locking folder K:\Yoli for write
+Copy Over 'C:\Datos\Yoli\Archivos viejos\Trabajos Uni\la caravana nueva.wps' -> 'K:\Yoli\Archivos viejos\Trabajos Uni\la caravana nueva.wps' +
+Create Folder 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\Registro usuarios programa DESDE AHORA' +
+Copy New 'C:\Datos\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\Registro usuarios programa DESDE AHORA\Mª Sol Muza Jiménez.doc' -> 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\Registro usuarios programa DESDE AHORA\Mª Sol Muza Jiménez.doc' +
+Copy New 'C:\Datos\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\2008.doc' -> 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\2008.doc' +
+Copy New 'C:\Datos\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\carta abogados.doc' -> 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\carta abogados.doc' +
+Copy New 'C:\Datos\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\CONVOCATORIA - DEIALDIA.htm' -> 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\CONVOCATORIA - DEIALDIA.htm' +
+Copy New 'C:\Datos\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\Guia defenderse en prision.doc' -> 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\Guia defenderse en prision.doc' +
+Copy New 'C:\Datos\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\las ....url' -> 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\las ....url' +
+Copy New 'C:\Datos\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\PROYECTO 2009 G. VASCO.doc' -> 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\PROYECTO 2009 G. VASCO.doc' +
+Copy New 'C:\Datos\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\proyecto educacion.doc' -> 'K:\Yoli\ASGIBA- ASOC. GITANA BARAKALDO\proyecto educacion.doc' +
+Copy Over 'C:\Datos\Yoli\Outlook\archive.pst' -> 'K:\Yoli\Outlook\archive.pst' +
+Copy Over 'C:\Datos\Yoli\Outlook\Outlook.pst' -> 'K:\Yoli\Outlook\Outlook.pst' +
+Copy New 'C:\Datos\Yoli\1_1674_3.pdf' -> 'K:\Yoli\1_1674_3.pdf' +
+Copy New 'C:\Datos\Yoli\Alorustico.htm' -> 'K:\Yoli\Alorustico.htm' +
+Copy New 'C:\Datos\Yoli\Ayuntamiento.jpg' -> 'K:\Yoli\Ayuntamiento.jpg' +
+Copy Over 'C:\Datos\Yoli\CurrAlbo1.doc' -> 'K:\Yoli\CurrAlbo1.doc' +
+Copy New 'C:\Datos\Yoli\folleto informativo modificado .doc' -> 'K:\Yoli\folleto informativo modificado .doc' +
+Copy New 'C:\Datos\Yoli\folleto informativo.doc' -> 'K:\Yoli\folleto informativo.doc' +
+Copy New 'C:\Datos\Yoli\FW Cuando quieres algo...puedes!!!.htm' -> 'K:\Yoli\FW Cuando quieres algo...puedes!!!.htm' +
+Copy New 'C:\Datos\Yoli\FW RV Sawabona...lean y disfruten....saludos...htm' -> 'K:\Yoli\FW RV Sawabona...lean y disfruten....saludos...htm' +
+Copy New 'C:\Datos\Yoli\Fwd FW RV Reenviar FW Rv Enviando por correo electrónico VALOR DE UNA MUJER.txt' -> 'K:\Yoli\Fwd FW RV Reenviar FW Rv Enviando por correo electrónico VALOR DE UNA MUJER.txt' +
+Copy New 'C:\Datos\Yoli\Llamada para la recepción de artículos.htm' -> 'K:\Yoli\Llamada para la recepción de artículos.htm' +
+Saving State File to C:\Datos\Yoli\_gsdata_\_file_state._gs +
+Saving State File to K:\Yoli\_gsdata_\_file_state._gs +
+Elementos Sincronizados OK: 22, Errores: 0
+===== 03/02/2010 19:06:18: Sinc. Completa. Tiempo: 00:00:34, Velocidad: 1,52 MB/s =====
+
