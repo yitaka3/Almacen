@@ -1,0 +1,6 @@
+document.write('<a target=\"_blank\" href=\"http://ads.bluelithium.com/click2,VaUDALzdCwBh7DwAAAAAAFZYEAAAAAAAAAASagoAAAAAAAIAAQAAAIowAgAAAAAAm8EWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDXAIAAAAAAAIAAgAAAAAA8ApF8iYBAAAAAAAAAGJjN2M5Mzk2LTFmMjktMTFkZi1hN2VmLTAwMWQwOTYzZjM2MwACXgAAAAA=,,http%3A%2F%2Fes.mg40.mail.yahoo.com%2Ffc%2Ffc%3Fp%3Dmail_candygram%26bg%3Dtransparent%26l%3Dsky%26f%3D150557782%26id%3D6%26cbk%3Dfcloaded%26tgt%3D_blank%26hs%3D2%26en%3Diso-8859-1%26em%3D%25257b%252522site-attribute%252522%25253a%252522content%25253d%25255,\"><img border=\"0\" alt=\"\" height=\"600\" width=\"160\" src=\"http://content.yieldmanager.edgesuite.net/atoms/29/f5/1c/53/29f51c537eb0cac3e50dd77aaec80a06.gif\"></img></a>');
+var rm_data = new Object();
+rm_data.creative_id = 3992673;
+rm_data.offer_type = 19;
+rm_data.entity_id = 240439;
+if (window.rm_crex_data) {rm_crex_data.push(3992673);}

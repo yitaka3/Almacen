@@ -1,0 +1,536 @@
+
+<!-- saved from url=(0409)http://es.mg40.mail.yahoo.com/dc/virusresults.html?from=vscan_response&default_file_name=Certificado%2520Seg.Social%252012.02.jpg&ui=iframe&YY=1266784941493&1&&file_name=Certificado%20Seg.Social%2012.02.jpg&file_size=104497&errorcode=download_av_no_virus&downloadURL=http%3A%2F%2Fes.mg40.mail.yahoo.com%2Fya%2Fdownload%3Fmid%3D1_6551_ALIKDNkAAWuUS3UrFw4GPhozk%2FA%26fid%3DInbox%26pid%3D8%26tnef%3D%26clean%3D0 -->
+<HTML><!-- Copyright 2005 Yahoo Inc. All rights reserved. --><HEAD><META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>Descargar archivo adjunto</TITLE>
+<META http-equiv="Expires" content="Sat, 16 Nov 2002 00:00:01 GMT">
+
+
+<STYLE>
+  body {
+	height: 300px;
+	padding: 0 20px;
+  font-family:tahoma, helvetica, arial, sans-serif; font-size:11px;
+  background-color: #F2F9FF;
+  margin:0px; 
+  overflow:hidden;
+}
+  
+#scanningText {
+  font-size:12pt;font-weight:bold;font-family:arial;
+}
+  
+#scanResultText {
+  font-size:12pt;font-weight:bold;font-family:arial;
+}
+
+#fileInfo {
+}
+
+#infoText {
+  margin-bottom: 10px;
+}
+
+.badStatusIcon, .okStatusIcon {
+	float: left;
+	background-image: url(http://l.yimg.com/a/i/us/pim/dclient/cg300_3/img/md5/709bf32a73edef7cbe5d4a770292bc09_1.png);
+	background-repeat: no-repeat;
+	width: 17px;
+	height: 17px;
+	margin-right: 4px;
+}
+
+.okStatusIcon {
+	background-position: -742px 1px;
+}
+
+.badStatusIcon {
+	background-position: -718px 0px;
+}
+
+#norton_logo {
+	left: 11px;
+	bottom: 11px;
+	position: absolute;
+	border: none;
+}
+
+#norton_logo img {
+	border: none;
+}
+
+
+</STYLE>
+<SCRIPT>
+
+document.write('<style> body{background-color:transparent;}</style>');
+
+var uiType   = "";
+var fileSize = "";
+var fileName = "";
+
+var vscan_prefix   = "";
+var downloadURL    = "";
+
+var fid    = "";
+var mid    = "";
+var pid    = "";
+var tnef      = "";
+
+var errorCode = "";
+
+var from	  = "";  //my state variable
+var codeWin;
+
+var galaxyParam = '';
+if (!window.opener) {
+	codeWin = window.parent;
+} else {
+	codeWin	= window.opener;
+}
+
+function init()
+{
+	var arg = codeWin.splitUrlSearchPortion(window.location.search);
+
+	from  = arg['from']; //where this file get called from.
+
+	vscan_prefix = arg['prefix'];       // comming from app.
+	downloadURL  = arg['downloadURL'];  // comming from vscan response.
+	errorCode    = arg['errorcode'] || arg['errorCode'];	// comming from vscan/download response.
+
+	fid    = arg['fid'];
+	mid    = arg['mid'];
+	pid    = arg['pid'];
+	tnef   = arg['tnef'];
+	
+	//it wouldn't exist when all users are moved to RHEL cluster
+	// so remove it in the future - ratan
+	galaxyParam = arg['.gx']; 
+
+	try {
+		fileName  = decodeURIComponent( arg['file_name'] );
+	} catch (e) {
+		/* bug 2507657 : The decodeURIComponent throws "malformed URI sequence" exception if the passed in argument contains a non ascii character.
+		 * Use the unescape function in that case. 
+		 */
+		fileName = unescape( arg['file_name'] );
+	}
+	
+	if (!fileName) {
+		try {
+			fileName = decodeURIComponent(arg['default_file_name']);
+		}
+		catch (e) {
+			fileName = unescape( arg['default_file_name'] );
+		}
+	}
+
+	fileSize  = codeWin.AD_getKilobytes( arg['file_size'] );
+	uiType    = arg['ui'];
+
+	codeWin.AD_log("Attachment Download URL: " + window.location.href);
+}
+
+function virusScanResult(){
+
+	var fontColor = "#62b500"; // green
+	var resultStr = "";
+	var infoStr   = "";
+	var iconDiv = "<div class='okStatusIcon'></div>";
+
+	switch (errorCode) {
+	case "download_av_no_virus":
+		resultStr = "No se detectaron virus";
+		infoStr	= "El análisis antivirus no detectó ningún virus en los archivos adjuntos. Pulsa el botón de descarga para continuar.";
+		assign_download_action();
+		break;
+	case "download_has_virus":
+	case "download_has_virus_cant_clean":
+		resultStr = "Se ha detectado un virus";
+		infoStr	= ( errorCode == "download_has_virus" ) ? "El archivo adjunto tiene un virus. No puedes descargar este archivo adjunto." : "¡El archivo adjunto que estás intentado descargar contiene un virus que no se puede eliminar!";
+        dialog_button_helper("make_download_hidden");
+		fontColor = "#ff0033"; // red
+		iconDiv = "<div class='badStatusIcon'></div>";
+		break;
+	case "download_cleaned":
+		resultStr = "Se ha detectado un virus y se ha eliminado";
+		infoStr	= "¡El archivo que has intentado descargar contiene un virus! Se ha eliminado el virus y ya puedes descargar sin peligro el documento adjunto. Pulsa el botón de descarga para continuar.";
+		fontColor = "#3399cc"; // blue
+		assign_download_action();
+		break;
+	case "download_not_scannable":
+		resultStr = "El archivo adjunto no se puede analizar";
+		infoStr	= "El archivo adjunto que estás intentando descargar no se puede analizar con el antivirus.";
+		fontColor = "#cc9966";// brown
+		iconDiv = "<div class='badStatusIcon'></div>";
+		assign_download_action();
+		break;
+	default:
+		resultStr = "El analizador de virus no está disponible";
+		infoStr	= "El analizador de virus no está disponible actualmente. El archivo adjunto puede contener o no un virus.";
+		fontColor = "#cc9966";// brown
+		iconDiv = "<div class='badStatusIcon'></div>";
+		assign_download_action();
+		break;
+	}
+
+    codeWin.AD_log("Attachment Download - virusScanResult: " + resultStr);
+    
+	var scannintText = document.getElementById( "scanningText" );
+	var scanResultText = document.getElementById( "scanResultText" );
+	var infoText = document.getElementById( "infoText" );
+	var fileInfo = document.getElementById( "fileInfo" );
+
+	scannintText.style.display = "none";
+
+	scanResultText.style.color = fontColor;
+	scanResultText.innerHTML = resultStr;
+	scanResultText.style.display = "block";
+
+	infoText.innerHTML = infoStr;
+
+	fileInfo.style.display = "block";
+	var text=fileName + " (" + fileSize + "KB" +")";
+	text = text.replace(/&/g,'&amp;');
+	text = text.replace(/</g,'&lt;');
+	text = text.replace(/>/g,'&gt;');
+	text = text.replace(/\"/g, '&quot;');
+	fileInfo.innerHTML =  iconDiv + text;
+}
+
+
+function handle_download_error(avScan)
+{
+     var resultStr = null;
+     var dlgTitle= "Descargar archivo adjunto";
+
+	switch (errorCode) {
+	case "attachment_not_found" :
+	case "tnef_not_found"       :
+	case "part_not_found"       :
+	case "unable_to_get_message_info_or_part":
+	case "could_not_get_archive_content":
+		resultStr = "No se ha podido encontrar el mensaje que incluía el archivo adjunto.";
+		break;
+
+	case "invalid_cookies"     :
+	case "no_credentials"      :
+	case "cred_decrypt_failed" :
+	case "ypc_no_attachment_permission":
+		resultStr = "Ha surgido un problema de acceso a tu cuenta.";
+		break;
+
+	case "bad_tnef_param" :
+		resultStr = "No hemos entendido tu petición.";
+		break;
+
+	case "mailbox_open_err"   :
+	case "could_not_open_udb" :
+	
+		resultStr = "Ha habido un problema de acceso a tu buzón de correo.";
+		break;
+
+	case "internal_error"       :
+	case "one_time_url_failed"  :
+	case "redirect_url_missing" :
+	    resultStr = "Ha ocurrido un error interno al descargar el archivo adjunto.";
+	    break;
+	    
+	default:
+	    if (!avScan)
+		  resultStr = "Ha ocurrido un error interno al descargar el archivo adjunto.";
+	}
+
+    if (!resultStr) return null;
+    
+    if (avScan){
+         codeWin.AD_rocketStat("attachments_vscan_error");
+         codeWin.AD_rocketStat("attachments_vscan_error_" + errorCode);
+    } else {
+         codeWin.AD_rocketStat("attachments_download_response_error_" + errorCode);
+    }
+    
+    codeWin.AD_log("Attachment Download - handle_download_error: " + resultStr);
+    
+    // Bug 1238680: Open an error dialog since this current one is hidden.
+    // Note that opening the other dialog will close this one.
+    codeWin.AD_showErrorDialog(resultStr, dlgTitle);
+    
+    return true;
+}
+
+
+function assign_download_action()
+{
+	dialog_button_helper("make_both_button_visible",
+				  "Descargar archivo adjunto",
+				  "Cancelar"
+				 );
+
+	downloadURL = decodeURIComponent(downloadURL);
+	
+	//may need to check dowloandURL is in a correct form
+
+	var downloadURL_split = downloadURL.split('?');
+
+	var download_query = encodeURL_Value(downloadURL_split[1]);
+	downloadURL = downloadURL_split[0];
+
+	var redirectURL = encodeURIComponent(construct_redirectURL("download_response"));
+
+	downloadURL += "?" + download_query + "redirectURL=" + redirectURL;
+
+    codeWin.AD_log("Attachment Download - URL = " + downloadURL);
+    codeWin.AD_log("Attachment Download - uiType = " + uiType);
+ 
+	var downloadFunc;
+	if ( uiType == 'largewindow' ){ // for popup window case
+		downloadFunc = 'window.resizeTo(700,500);window.location.replace("' + downloadURL + '");attemptClose()';
+	} else if ( uiType == 'smallwindow' ){ // for popup window case
+		downloadFunc = 'window.location.replace("' + downloadURL + '");attemptClose()';
+	} else if ( uiType == 'iframe' ){
+		downloadFunc = 'window.location.replace("' + downloadURL + '");dialog_button_helper("download_clicked", "Terminado");return true;';
+	}	else {
+		alert("ATT999");//This should never happend. If it did happen, customer support will use this info.
+		codeWin.AD_log("Attachment Download Error: uiType = " + uiType);
+	}
+	dialog_button_helper("assigned_new_download_action", null, null, new Function(downloadFunc));
+}
+
+
+function construct_redirectURL(from){
+	var rand = new Date().getTime().toString();
+	var galaxyUrlExtra = galaxyParam ? ('&' + galaxyParam) : '';
+	var redirectURL = [ 'http://',
+						location.hostname,
+						"/dc/virusresults.html?from=",
+						from,
+						"&default_file_name=",
+						escape(encodeURIComponent(fileName)),
+						"&ui=",
+						uiType,
+						"&YY=",
+						rand,
+						galaxyUrlExtra,
+						"&"
+						];
+	return redirectURL.join("");
+}
+
+
+function encodeURL_Value(query_string){
+	var encoded_query = "";
+	var query_split = query_string.split("&");
+	var entry = "";
+	var parts = "";
+
+	for (var i = 0; i < query_split.length; i++){
+		entry = query_split[i];
+		if (!entry){
+			continue;
+		}
+		parts = entry.split("=");
+		
+		// this is specific for the download url .. but this function is only used to form that
+		if ((parts[0] == 'prefFilename')&&(!parts[1]))
+			parts[1] = fileName;
+		encoded_query += parts[0] + '=' + encodeURIComponent( parts[1] ) + "&";
+	}
+	return encoded_query;
+}
+
+
+function dialog_button_helper(action_code, new_label1, new_label2, new_action)
+{
+	var download = (uiType == 'iframe')? codeWin.AD_getDownloadButton() : document.getElementById("downloadButton");
+	var close 	 = (uiType == 'iframe')? codeWin.AD_getCancelButton()   : document.getElementById("cancelDoneButton");
+
+	switch (action_code) {
+	case "make_both_button_visible":
+		download.style.visibility = "visible";
+		close.style.visibility = "visible";
+		download.innerHTML = new_label1;
+		close.innerHTML = new_label2;
+		download.focus();
+		break;
+	case "make_cancel_visible":
+		close.style.visibility = "visible";
+		close.innerHTML = new_label1;
+		close.focus();
+		break;
+	case "make_download_hidden":
+		download.style.visibility = "hidden";
+		close.focus();
+		break;
+	case "download_clicked":
+		download.style.visibility = "hidden";
+		close.style.visibility = "visible";
+		//close.innerHTML = new_label1;
+		//close.focus();
+
+		codeWin.AD_closeDialog();
+		break;
+	case "assigned_new_download_action":
+		download.onclick = new_action;
+		close.action = function (){
+					clearTimeout(dialog_button_helper.clearTimer);
+					return false;
+					};
+		break;
+	}
+}
+
+/*
+ * I used this virusresults.html for all download redirect.
+ * The first time this file is called from the main app to render the dialog.
+ * After finished rendering the dialog, I changed the location of the dialog to make
+ * virus scan cascade call. In this time I appended virusresults.html for redirect and
+ * set my state variable "from" to "vscan_response".
+ * When I get "vscan_response", I do virus scanning handling and ready to make a download
+ * cascade call with "from" set to "download_response".
+ * I will only get "download_response" in case of download error. Otherwish I should get
+ * the attachment.
+ */
+function vrOnload()
+{
+	var scanningText 	= document.getElementById( "scanningText" );
+	var scanResultText 	= document.getElementById( "scanResultText" );
+	var fileInfo 		= document.getElementById( "fileInfo" );
+
+	scanningText.style.color = "#62b500";
+	scanningText.innerHTML = "<img src='http://l.yimg.com/a/i/us/pim/dclient/cg300_3/img/md5/308ac52ecee97e56f8e292a610ecb7ea_1.gif' style='margin-right: 5px;'>Analizando en busca de virus.....";
+	scanResultText.style.display = "none";
+	fileInfo.style.display = "none";
+
+    codeWin.AD_log("Attachment Download - vrOnload");
+    
+	if ( uiType != 'iframe' ){ // for popup window case
+		document.getElementById("download_window").style.display = "block";
+		var norton_logo_area = document.getElementById("norton_logo");
+		var logo = codeWin.kPartner.av == 1 ? "http://l.yimg.com/a/i/us/pim/dclient/cg300_3/img/md5/9bb2800b57251e412f96684124770000_1.png" : "http://l.yimg.com/a/i/us/pim/dclient/cg300_3/img/md5/bca80d4a0287f3b02aaf12730121295f_1.gif";
+
+		 if  (codeWin.AD_isBroadbandUser()) {
+		   	//premium user, no hyper link
+		   	norton_logo_area.innerHTML = '<IMG src="' + logo + '">';
+		 } else {
+		   	norton_logo_area.innerHTML = '<A href="' + (codeWin.kPartner.av == 1 ? "0" : "http://us.rd.yahoo.com/mail/norton/es/SIG=11m756qif/**http%3A%2F%2Fwww.symantecstore.com%2Fpromo%3D129684" ) + '" target="_blank">' +
+						 				 '<IMG src="' + logo + '"></A>';
+		 }
+    }
+
+	dialog_button_helper("make_cancel_visible", "Cancelar");
+
+	switch (from){
+	case "app": //called from App
+		var redirectURL = encodeURIComponent(construct_redirectURL("vscan_response"));
+
+		var vscan_url = [vscan_prefix,
+						 "?mid=",
+						 mid,
+						 "&pid=",
+						 pid,
+						 "&fid=",
+						 fid,
+						 "&tnef=",
+						 tnef,
+						 "&redirectURL=",
+						redirectURL
+						];
+		window.location.href = vscan_url.join("");
+		break;
+	case "vscan_response": //response back from vscan
+	    if (!handle_download_error( true )){
+              virusScanResult();
+	    }
+		
+		break;
+	case "download_response": //response back from download
+		//If there is no download error, I shouldn't get this redirect.
+		codeWin.AD_rocketStat("attachments_download_response_error");
+		handle_download_error();
+		break;
+	default:
+	     codeWin.AD_rocketStat("attachments_unknown_error");
+		handle_download_error();
+	}
+}
+
+//In case of http error like 404, the 404 page is rendered inside the dialog.
+//So when the user close the dialog and the dialog try to find the action code
+//if there is any. In this case I need to set the action to be null.
+function vrOnUnload()
+{
+    codeWin.AD_log("Attachment Download - vrOnUnload");
+    
+	var close 	= (uiType == 'iframe')? codeWin.AD_getCancelButton() : document.getElementById("cancelDoneButton");
+
+	if (close) close.action = null;
+}
+
+function doClose()
+{
+	if ( uiType != 'iframe' ){
+		window.close();
+	} else {
+		codeWin.AD_closeDialog();
+	}
+}
+
+function attemptClose() {
+    // Note: The first call to dialog_button_helper will hide the
+    // virus scanning dialog.   But we still need to be able to display
+    // errors from downloading the attachment.  To test this, I forced
+    // a download error which made this dialog go out of scope.  Added
+    // the test for dialog_button_helper being undefined to allow us to
+    // hard code in a failure case to test that the error dialog works.
+    //
+    dialog_button_helper("download_clicked", "Terminado");
+    if (typeof dialog_button_helper != "undefined") {
+        dialog_button_helper.clearTimer = setTimeout("doClose()", gTimeToWait);
+    }
+}
+
+init(); // call init to initialize the arguments
+
+var gTimeToWait = 45000;
+
+</SCRIPT><STYLE> body{background-color:transparent;}</STYLE>
+</HEAD><BODY onload="vrOnload();" onunload="vrOnUnload();">
+	<BR>
+
+	<DIV id="scanningText" style="color: rgb(98, 181, 0); display: none; "><IMG src="./308ac52ecee97e56f8e292a610ecb7ea_1.gif" style="margin-right: 5px;">Analizando en busca de virus.....</DIV>
+
+	<DIV id="scanResultText" style="color: rgb(98, 181, 0); display: block; ">No se detectaron virus</DIV>
+
+	<DIV id="infoText">El análisis antivirus no detectó ningún virus en los archivos adjuntos. Pulsa el botón de descarga para continuar.</DIV>
+
+	<DIV id="fileInfo" style="display: block; "><DIV class="okStatusIcon"></DIV>Certificado Seg.Social 12.02.jpg (102KB)</DIV>
+
+	<BR><BR>
+	
+<!-- Begin: this is only for popup window case. -->
+<!-- For Win2k with no service pack and if the attachment is html type I need to open a popup window -->
+<!-- Otherwise, the attachment will be shown in the main application window. -->
+<DIV id="download_window" style="display:none">
+<!-- "http://www.symantecstore.com/51946" -->
+
+<DIV id="norton_logo">
+</DIV>
+
+<TABLE cellspacing="0" cellpadding="0" border="0" style="position:absolute;right:11px;bottom:11px">
+<TBODY>
+<TR>
+<TD><BUTTON id="downloadButton" class="dialogButton"><NOBR>Descargar archivo adjunto</NOBR></BUTTON></TD>
+<TD><DIV style="width:7px;"></DIV></TD>
+<TD><BUTTON id="cancelDoneButton" class="dialogButton" onclick="window.close();">Cancelar</BUTTON></TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV>
+<!-- End: for popup window case. -- >
+
+</body>
+</html>
+
+<!-- cg27.c41.mail.ird.yahoo.com compressed/chunked Sun Feb 21 12:42:22 PST 2010 -->
+<DIV id="-chrome-auto-translate-plugin-dialog" style="display: none;opacity: 1 !important;border-color: none !important;background: transparent !important;padding: 0 !important;margin: 0 !important;position: absolute !important;top: 0;left: 0;overflow: visible !important;z-index: 999999 !important;text-align: left !important;"><DIV style="max-width: 300px !important;color: #fafafa !important;opacity: 0.8 !important;border-color: #000000 !important;border-width: 0px !important;-webkit-border-radius: 10px !important;background-color: #363636 !important;font-size: 16px !important;padding: 8px !important;overflow: visible !important;background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #000), color-stop(50%, #363636), color-stop(100%, #000));z-index: 999999 !important;text-align: left  !important;"><DIV class="translate"></DIV><DIV class="additional"></DIV></DIV><IMG src="./small-logo.png" onclick="document.location.href=&#39;http://translate.google.com/&#39;;" style="position: absolute !important; z-index: -1 !important; right: 1px !important; top: -20px !important; cursor: pointer !important;-webkit-border-radius: 20px; background-color: rgba(200, 200, 200, 0.3) !important; padding: 3px 5px 0 !important; margin: 0 !important;"></DIV></BODY></HTML>
