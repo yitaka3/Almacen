@@ -1,0 +1,252 @@
+
+<!-- saved from url=(0348)http://es.mg40.mail.yahoo.com/fc/fc?p=mail_candygram&bg=transparent&l=SKY&f=150557782&id=6&cbk=fcLoaded&tgt=_blank&hs=2&en=iso-8859-1&em=%257B%2522site-attribute%2522%253A%2522content%253D%255C%2522tenure%253A%2520week%252014-%253Bno_expandable%253Bajax_cert_expandable%255C%2522%2522%257D&t_e=100&.intl=es&.lang=es-ES&t=1&rand=1266784692266&&.gx=1 -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<META http-equiv="Cache-Control" content="no-cache">
+<META http-equiv="Expires" content="Sat, 16 Nov 2002 00:00:01 GMT">
+<META http-equiv="imagetoolbar" content="no">
+<META http-equiv="imagetoolbar" content="false">
+<!-- <BASE target="_blank"> --><BASE href="." target="_blank">
+<TITLE></TITLE>
+<STYLE>
+	body { margin:0px; padding: 0px; overflow: hidden; width:100%; height:100%;
+		    background-color:transparent; }
+ 	.ad_slug {display:none;}
+</STYLE>
+<SCRIPT id="fcScript">
+var inFIF = true;
+var isAJAX = true;
+window.onerror = function(sMsg,sUrl,sLine){
+	var str, st, e, brows="otherBrows",plat="otherPlat",
+	ua = navigator.userAgent.toLowerCase();
+	if (ua.indexOf('msie')!=-1){brows='ie';}
+	else if (ua.indexOf('safari')!=-1){brows='saf';}
+	else if (ua.indexOf('firefox')!= -1){brows='ff';}
+	if (ua.indexOf('mac')!=-1){plat='mac';}
+	else if (ua.indexOf('windows')!= -1){plat='win';}
+	str = ["AdScriptError", brows, plat];
+	try {
+		top.window.DebugNoMunge.logToRocketStatLazyThrottle("AdScriptError");
+		top.window.DebugNoMunge.logToRocketStatLazyThrottle(str.join("_"));
+	} catch (e) { e = null; }
+
+
+	try {
+		str	= ["ADScriptError--ID-", "", "\nDesc:", sMsg, "\n:URL:", sUrl, "\nLine:", sLine];
+	} catch (e) {
+		str = "ADScriptError--FailedGettingInfo";
+		e	= null;
+	}
+	try {
+		st	= top.window.stackTrace();
+	} catch (e) {
+		e	= null;
+		st = "No stack trace info for ad error";
+	}
+	try {
+		top.window.sendJSLog("adJSErr", str.join(""),st);
+	} catch (e) { e = null; }
+	return true;
+}
+var emitted = "";
+
+if ( window.attachEvent ) {
+window.Unloader = {
+	unloaders: [],
+	beforeunloaders: [],
+	attach: function ( type, handler ) {
+		if ( type == "onunload" )
+			Unloader.unloaders.push ( handler );
+		else if ( type == "onbeforeunload" )
+			Unloader.beforeunloaders.push ( handler );
+				window.oldAttachEvent ( type, handler );
+	},
+	fire: function ( type ) {
+		if ( type == null ) {
+			Unloader.fire ( "beforeunload" );
+			Unloader.fire ( "unload" );
+			return;
+		}
+		var handlers = Unloader[type + "ers"];
+		if ( handlers ) {
+			for ( var i=0, n=handlers.length; i<n; ++i ) {
+				handlers [i].apply ( window );
+			}
+		}
+		var handler = window["on"+type];
+		if ( handler ) handler.apply ( window );
+	}
+}
+window.oldAttachEvent = window.attachEvent;
+window.attachEvent = Unloader.attach;
+}
+
+
+function injectHtml ( loc, dest, html, csc ) {
+if ( dest.charAt(0) == "!" ) dest = dest.substring(1);
+var indirect = ( html == null );
+var errHtml = html;
+if ( window.parent == null ) return;
+if ( indirect ) {
+    // SAFARI: [\S] is broken, so use [^\s] (bug 1463593)
+	html = document.getElementById(loc);
+	if ( html == null ) return false;
+	html = html.innerHTML;
+	html = html.replace ( new RegExp ( '<scr'+'ipt[^>]*?>([\\s]|[^\\s])*?<\\/scr'+'ipt>', "ig" ), "" );
+	html = html.replace ( new RegExp ( '<img[^>]*?yzq[^>]*?>', "ig" ), "" );
+	var errHtml = html;
+	html = html.replace ( new RegExp ( '<!--([\\s]|[^\\s])*?-->', "ig" ), "" );
+	html = html.replace ( new RegExp ( '\\s*' ), "" );
+}
+if ( html != '' ) { try {
+	var parElt = parent.document.getElementById(dest);
+	if ( parElt ) {
+		parElt.innerHTML = html;
+		if ( parElt.style.display == "none" ) parElt.style.display = "block";
+		document.write ( csc );
+		if ( window.emitted != null ) {
+			if ( emitted.length > 0 ) emitted += ",";
+			emitted += loc;
+		}
+	} else {
+		var fn;
+		if ( window.parent && ( dest == 'fcHandoff' || dest == 'fcLoaded' ))
+			fn = parent[dest];
+		if ( fn && ( typeof fn == "function" )) {
+					if ( fn ( loc, html ) == true ) {
+				document.write ( csc );
+				if ( window.emitted != null ) {
+					if ( emitted.length > 0 ) emitted += ",";
+					emitted += loc;
+				}
+			}
+		}
+	}
+} catch (e) {
+		document.write ( "<div style='display:none;' id='" + loc + "DestErr'>" + e.message.replace ( /</g, "&lt;" ).replace ( />/g, "&gt;" ) + "</div>\n" );
+} } else {
+	if ( indirect ) {
+				document.write ( "<div style='display:none;' id='" + loc + "AdErr'>" + errHtml.replace ( /</g, "&lt;" ).replace ( />/g, "&gt;" ) + "</div>\n" );
+
+				document.write ( csc );
+	}
+}
+}
+
+function dragendMktgImg(evt) {
+	evt = (evt) ? evt : ( (event) ? event : null );
+	if ( evt && window.parent && parent._CD ) {
+		parent._CD( 'compose:mktgImg', evt );
+	}
+}
+</SCRIPT>
+</HEAD><BODY onload="stopAdTimer()" marginwidth="0" marginheight="0">
+<TABLE width="100%" border="0" cellspacing="0" cellpadding="0"><TBODY><TR><TD align="middle">
+<SCRIPT>
+	if ( emitted.length > 0 ) emitted += ",";
+	emitted += "SKY";
+</SCRIPT>
+<!-- ADLookupAndFetch, 23-:20-->
+<SCRIPT type="text/javascript">
+if (top.window.DebugNoMunge) {
+	try {
+		top.window.DebugNoMunge.log("Ad Info: ");
+		top.window.DebugNoMunge.logLatestAdInfo("");
+		top.window.DebugNoMunge.log("Ad Urls:  ");
+	} catch(e) {e = null;}
+}
+
+
+var gAdTimer	= null;
+function startAdTimer() { gAdTimer	= (new Date()).getTime(); }
+function stopAdTimer()
+{
+	var sAdsonPage	= "SKY";
+	if (gAdTimer) {
+		gAdTimer = (new Date()).getTime() - gAdTimer;
+		if (top.window.DebugNoMunge) {
+			top.window.DebugNoMunge.logAds(sAdsonPage, gAdTimer);
+		}
+				if(top.kPartner && top.kPartner["AdBeaconInfo"] && top.kPartner["AdBeaconInfo"].AdState==2)
+		{
+		   top.kPartner["AdBeaconInfo"].AdTime = gAdTimer;
+		   top.kPartner["AdBeaconInfo"].AdState=1;
+	    }
+		gAdTimer = null;
+	}
+	var transID	= "6", frameID;
+
+	try {
+		frameID = window.frameElement.id;
+	} catch (e) {
+		frameID = "";
+	}
+	if (transID && frameID) {
+		try {
+			parent.fcOnLoad(emitted, transID, frameID);
+		} catch (e) {
+
+		}
+	}
+}
+</SCRIPT>
+<SCRIPT>startAdTimer();</SCRIPT><DIV id="SKY"><!-- http://es.ard.yahoo.com/SIG=15t2ond74/M=200091354.201944961.203234651.200837456/D=esmail/S=150557782:SKY/_ylt=AqiXJu4PilWYMwp0ZP4K519WVPkI/Y=ES/EXP=1266791892/L=vuNgfdRSaCmOn.taS4GZDQD5VVQj7EuBmbQACpJv/B=IC70GNkMBYI-/J=1266784692710160/K=uj3X7qgBJfPxENeyymGHBA/A=200727664/R=0/* -->
+<DIV style="color:#000000;font-size:10px;font-family:Verdana,arial,sans-serif;text-align:center">PUBLICIDAD<BR><IFRAME allowtransparency="TRUE" frameborder="0" marginwidth="0" marginheight="0" scrolling="NO" width="160" height="600" src="./st.htm"></IFRAME><SCRIPT language="javascript">
+if(window.yzq_d==null)window.yzq_d=new Object();
+window.yzq_d['IC70GNkMBYI-']='&U=13nfnas34%2fN%3dIC70GNkMBYI-%2fC%3d200091354.201944961.203234651.200837456%2fD%3dSKY%2fB%3d200727664%2fV%3d1';
+</SCRIPT></DIV></DIV></TD></TR></TBODY></TABLE>
+
+
+<SCRIPT>
+function killActivate () {
+	this.onbeforeactivate = null;
+	return false;
+}
+
+if ( document.all && window.parent ) {
+	var elts = document.getElementsByTagName ( "IFRAME" );
+	var n = elts.length;
+	for ( var i=0; i<n; ++i ) {
+		elts[i].onbeforeactivate = killActivate;
+	}
+	var elts = document.getElementsByTagName ( "OBJECT" );
+	var n = elts.length;
+	for ( var i=0; i<n; ++i ) {
+		elts[i].onbeforeactivate = killActivate;
+	}
+}
+</SCRIPT>
+
+
+<SCRIPT>
+if ( window.parent ) {
+	var e, id = null;
+	try {
+		id = frameElement.id;
+	} catch (e) { }
+	try {
+		var fn;
+		if ( window.parent && parent.fcLoaded )
+			fn = parent.fcLoaded;
+		if ( fn && ( typeof fn == 'function' ))
+			fn ( emitted, 6, id );
+	} catch (e) { document.write ( "<!"+"-- callback:"+ e?e.message:'no error' +"--"+">" ) }
+}
+</SCRIPT>
+
+<SCRIPT>
+var mktgImg = document.getElementsByName("mktgImg");
+for ( var i = 0 ; i < mktgImg.length ; i++ ) {
+	mktgImg[i].ondragend = dragendMktgImg
+}
+
+</SCRIPT>
+
+<SCRIPT language="javascript">
+if(window.yzq_p==null)document.write("<scr"+"ipt language=javascript src=http://l.yimg.com/d/lib/bc/bcr_2.0.4.js></scr"+"ipt>");
+</SCRIPT><SCRIPT language="javascript" src="./bcr_2.0.4.js"></SCRIPT><SCRIPT language="javascript">
+if(window.yzq_p)yzq_p('P=vuNgfdRSaCmOn.taS4GZDQD5VVQj7EuBmbQACpJv&T=16h7ts5cp%2fX%3d1266784692%2fE%3d150557782%2fR%3desmail%2fK%3d5%2fV%3d1.1%2fW%3dJR%2fY%3dES%2fF%3d3699615016%2fH%3dY29udGVudD0idGVudXJlOiB3ZWVrIDE0LTtub19leHBhbmRhYmxlO2FqYXhfY2VydF9leHBhbmRhYmxlIg--%2fS%3d1%2fJ%3dCA6852D4');
+if(window.yzq_s)yzq_s();
+</SCRIPT><NOSCRIPT></NOSCRIPT>
+<!-- cg11.c41.mail.ird.yahoo.com compressed/chunked Sun Feb 21 12:38:12 PST 2010 -->
+<DIV id="-chrome-auto-translate-plugin-dialog" style="display: none;opacity: 1 !important;border-color: none !important;background: transparent !important;padding: 0 !important;margin: 0 !important;position: absolute !important;top: 0;left: 0;overflow: visible !important;z-index: 999999 !important;text-align: left !important;"><DIV style="max-width: 300px !important;color: #fafafa !important;opacity: 0.8 !important;border-color: #000000 !important;border-width: 0px !important;-webkit-border-radius: 10px !important;background-color: #363636 !important;font-size: 16px !important;padding: 8px !important;overflow: visible !important;background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #000), color-stop(50%, #363636), color-stop(100%, #000));z-index: 999999 !important;text-align: left  !important;"><DIV class="translate"></DIV><DIV class="additional"></DIV></DIV><IMG src="./small-logo.png" onclick="document.location.href=&#39;http://translate.google.com/&#39;;" style="position: absolute !important; z-index: -1 !important; right: 1px !important; top: -20px !important; cursor: pointer !important;-webkit-border-radius: 20px; background-color: rgba(200, 200, 200, 0.3) !important; padding: 3px 5px 0 !important; margin: 0 !important;"></DIV></BODY></HTML>
